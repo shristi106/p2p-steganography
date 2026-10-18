@@ -1,0 +1,9 @@
+﻿.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+.DS_Store
+
+received_files/
+test_files/detector_dataset/

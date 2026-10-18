@@ -1,0 +1,3 @@
+This is a sample file for the P2P file integrity project.
+The receiver must verify that this file has not been modified.
+Modified

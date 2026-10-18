@@ -7,3 +7,9 @@ __pycache__/
 
 received_files/
 test_files/detector_dataset/
+test_files/multi_cover_results/
+test_files/steganalysis/
+test_files/adaptive_stego.png
+test_files/adaptive_comparison.png
+test_files/fixed_comparison.png
+test_files/evaluation_stego.png

@@ -13,3 +13,7 @@ test_files/adaptive_stego.png
 test_files/adaptive_comparison.png
 test_files/fixed_comparison.png
 test_files/evaluation_stego.png
+
+# VeilLink runtime files
+instance/
+

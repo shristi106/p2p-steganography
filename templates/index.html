@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07100d">
+  <meta name="description" content="VeilLink — image steganography, SHA-256 integrity verification, and temporary file relay.">
+  <title>VeilLink | Secure Transfer Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="VeilLink home">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 9.5 16 3l12 6.5v13L16 29 4 22.5z"/><path d="m9 12 7 4 7-4M16 16v8"/></svg></span>
+        <span><strong>veil<span>link</span></strong><small>SECURE TRANSFER LAB</small></span>
+      </a>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-item active" data-view="overview"><span class="nav-icon">⌂</span>Overview</button>
+        <button class="nav-item" data-view="embed"><span class="nav-icon">⌁</span>Embed &amp; Send</button>
+        <button class="nav-item" data-view="extract"><span class="nav-icon">⌕</span>Extract Message</button>
+        <button class="nav-item" data-view="integrity"><span class="nav-icon">◈</span>Verify Integrity</button>
+        <button class="nav-item" data-view="relay"><span class="nav-icon">⇄</span>Transfer Relay</button>
+        <button class="nav-item" data-view="metrics"><span class="nav-icon">▥</span>Research Metrics</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="system-status"><span class="pulse"></span><span><b>LOCAL ENGINE</b><small>Ready for requests</small></span></div>
+        <div class="sidebar-foot">LSB STEGANOGRAPHY · SHA-256</div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="crumb"><span>VEILLINK</span><i>/</i><b id="crumb-current">OVERVIEW</b></div>
+        <div class="top-right"><span class="secure-pill"><span class="tiny-dot"></span>SESSION READY</span><span class="avatar">VL</span></div>
+      </header>
+      <div class="content">
+        <section class="view active" id="view-overview">
+          <div class="hero">
+            <div><div class="eyebrow"><span class="eyebrow-line"></span>PRIVATE BY DESIGN</div><h1>Move data.<br><span>Leave no trace.</span></h1><p class="hero-copy">Hide a message inside an image, check file integrity, and share the result through a temporary relay.</p><div class="hero-actions"><button class="btn btn-primary" data-go="embed">Start a transfer <span>↗</span></button><button class="btn btn-ghost" data-go="metrics">Explore research <span>→</span></button></div></div>
+            <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="art-core"><div class="art-lock">⌑</div><div class="art-line"></div><div class="art-node node-a"></div><div class="art-node node-b"></div><div class="art-node node-c"></div><span class="art-label">PAYLOAD ENCRYPTION<br>NOT INCLUDED</span></div><div class="art-code">0x4A&nbsp; 7F&nbsp; 1C<br>93&nbsp; 0D&nbsp; B2<br>5E&nbsp; 88&nbsp; 41</div><div class="art-tag">LSB / SHA-256</div></div>
+          </div>
+          <div class="section-head"><div><div class="eyebrow">YOUR TOOLKIT</div><h2>One workspace. Three layers.</h2></div><span class="subtle">01 — 03</span></div>
+          <div class="feature-grid">
+            <button class="feature-card" data-go="embed"><span class="feature-icon">⌁</span><span class="card-kicker">01 / STEGANOGRAPHY</span><strong>Hide in plain sight</strong><p>Embed a UTF-8 message into an image using fixed-order or texture-adaptive LSB.</p><span class="card-link">Open embedding <b>↗</b></span></button>
+            <button class="feature-card" data-go="integrity"><span class="feature-icon">◈</span><span class="card-kicker">02 / INTEGRITY</span><strong>Verify every byte</strong><p>Compare SHA-256 hashes to detect whether two files differ.</p><span class="card-link">Check integrity <b>↗</b></span></button>
+            <button class="feature-card" data-go="relay"><span class="feature-icon">⇄</span><span class="card-kicker">03 / TRANSFER</span><strong>Share with a link</strong><p>Create a temporary download link for a stego image, valid for 30 minutes.</p><span class="card-link">Open relay <b>↗</b></span></button>
+          </div>
+          <div class="notice"><span class="notice-icon">i</span><p><b>Research prototype</b> — LSB hides data but does not encrypt it. SHA-256 confirms file equality, not sender identity. Avoid uploading confidential files to a public demo.</p></div>
+        </section>
+
+        <section class="view" id="view-embed">
+          <div class="page-heading"><div class="eyebrow">01 / STEGANOGRAPHY</div><h1>Embed &amp; send</h1><p>Choose a cover image and hide a message in its pixel data.</p></div>
+          <div class="work-grid"><form id="embed-form" class="panel form-panel"><div class="panel-title"><span class="step-num">01</span><div><h3>Prepare payload</h3><p>PNG output is generated by the engine.</p></div></div>
+            <label class="field-label">COVER IMAGE <span>MAX 12 MB</span></label><label class="dropzone" for="embed-image"><input id="embed-image" type="file" name="image" accept="image/png,image/jpeg,image/webp,image/bmp" required><span class="upload-symbol">↑</span><strong id="embed-file-name">Drop an image here or browse</strong><small>PNG, JPG, WEBP or BMP</small></label>
+            <label class="field-label" for="embed-message">SECRET MESSAGE</label><textarea id="embed-message" name="message" rows="5" maxlength="100000" placeholder="Type the message you want to hide…" required></textarea><div class="field-meta"><span>UTF-8 text</span><span id="char-count">0 / 100,000</span></div>
+            <label class="field-label" for="embed-algorithm">EMBEDDING ALGORITHM</label><select id="embed-algorithm" name="algorithm"><option value="fixed">Fixed-order LSB <span>— baseline</span></option><option value="adaptive">Adaptive LSB — texture-ranked pixels</option></select>
+            <button class="btn btn-primary full-btn" type="submit"><span>Embed message</span><span>↗</span></button><div class="form-error" id="embed-error" role="alert"></div>
+          </form><div class="panel result-panel"><div class="panel-title"><span class="step-num">02</span><div><h3>Output &amp; status</h3><p>Your generated stego image appears here.</p></div></div><div class="empty-state" id="embed-empty"><div class="empty-art">▧<span>+</span></div><strong>Awaiting payload</strong><p>Upload a cover image and enter a message to begin.</p><div class="mini-status"><span></span>ENGINE IDLE</div></div><div id="embed-result" class="result-content hidden"></div></div></div>
+        </section>
+
+        <section class="view" id="view-extract">
+          <div class="page-heading"><div class="eyebrow">02 / MESSAGE RECOVERY</div><h1>Extract message</h1><p>Read a hidden message from a VeilLink-compatible stego image.</p></div>
+          <div class="work-grid"><form id="extract-form" class="panel form-panel"><div class="panel-title"><span class="step-num">01</span><div><h3>Load stego image</h3><p>Select the matching algorithm used during embedding.</p></div></div><label class="dropzone" for="extract-image"><input id="extract-image" type="file" name="image" accept="image/png,image/jpeg,image/webp,image/bmp" required><span class="upload-symbol">↑</span><strong id="extract-file-name">Choose a stego image</strong><small>Original PNG output recommended</small></label><label class="field-label" for="extract-algorithm">EXTRACTION ALGORITHM</label><select id="extract-algorithm" name="algorithm"><option value="fixed">Fixed-order LSB</option><option value="adaptive">Adaptive LSB</option></select><button class="btn btn-primary full-btn" type="submit">Extract hidden message <span>↗</span></button><div class="form-error" id="extract-error" role="alert"></div></form><div class="panel result-panel"><div class="panel-title"><span class="step-num">02</span><div><h3>Recovered payload</h3><p>Decoded text is shown below when available.</p></div></div><div class="empty-state" id="extract-empty"><div class="empty-art">⌕</div><strong>No payload recovered</strong><p>Run extraction to see the decoded message.</p></div><div id="extract-result" class="result-content hidden"></div></div></div>
+        </section>
+
+        <section class="view" id="view-integrity">
+          <div class="page-heading"><div class="eyebrow">03 / FILE VERIFICATION</div><h1>Verify integrity</h1><p>Compare two files with SHA-256 to detect byte-level changes.</p></div>
+          <form id="verify-form" class="panel verify-panel"><div class="two-file-grid"><div><label class="field-label">REFERENCE FILE</label><label class="dropzone compact-drop" for="original-file"><input id="original-file" type="file" name="original" required><span class="upload-symbol">↑</span><strong id="original-file-name">Choose original file</strong><small>Trusted reference copy</small></label></div><div><label class="field-label">RECEIVED FILE</label><label class="dropzone compact-drop" for="received-file"><input id="received-file" type="file" name="received" required><span class="upload-symbol">↑</span><strong id="received-file-name">Choose received file</strong><small>File to verify</small></label></div></div><button class="btn btn-primary" type="submit">Compare SHA-256 hashes <span>↗</span></button><div class="form-error" id="verify-error" role="alert"></div></form><div id="verify-result" class="panel hash-result hidden"></div><div class="notice"><span class="notice-icon">i</span><p>Matching hashes mean the files are byte-for-byte identical. A hash comparison alone does not authenticate the sender or prove the file came from a trusted source.</p></div>
+        </section>
+
+        <section class="view" id="view-relay">
+          <div class="page-heading"><div class="eyebrow">04 / TEMPORARY SHARING</div><h1>Transfer relay</h1><p>Generate a temporary download link to move a stego image between devices.</p></div>
+          <div class="work-grid"><form id="relay-form" class="panel form-panel"><div class="panel-title"><span class="step-num">01</span><div><h3>Publish a file</h3><p>Only image files are accepted in this demo.</p></div></div><label class="dropzone" for="relay-file"><input id="relay-file" type="file" name="file" accept="image/png,image/jpeg,image/webp,image/bmp" required><span class="upload-symbol">↑</span><strong id="relay-file-name">Select stego image</strong><small>Max file size: 12 MB</small></label><button class="btn btn-primary full-btn" type="submit">Create relay link <span>↗</span></button><div class="form-error" id="relay-error" role="alert"></div></form><div class="panel result-panel"><div class="panel-title"><span class="step-num">02</span><div><h3>Share details</h3><p>Copy the link and open it on another device.</p></div></div><div class="empty-state" id="relay-empty"><div class="empty-art">⇄</div><strong>No active share</strong><p>Your one-time link will appear here.</p></div><div id="relay-result" class="result-content hidden"></div></div></div><div class="notice"><span class="notice-icon">!</span><p><b>Demo relay limitations:</b> links expire after 30 minutes and share metadata is stored in memory. A service restart clears active links. This is a web relay, not a direct peer-to-peer connection; do not use it for confidential files.</p></div>
+        </section>
+
+        <section class="view" id="view-metrics">
+          <div class="page-heading"><div class="eyebrow">05 / EXPERIMENTS</div><h1>Research metrics</h1><p>View the sample benchmark record stored in your existing evaluation CSV.</p></div>
+          <div id="metrics-state" class="panel metrics-panel"><div class="loading-row"><span class="spinner"></span>Reading evaluation_results.csv…</div></div>
+          <div class="metric-notes"><div class="metric-note"><span>01</span><strong>Embedding / extraction time</strong><p>Measured runtime for the current recorded sample; results depend on hardware and image size.</p></div><div class="metric-note"><span>02</span><strong>PSNR / SSIM</strong><p>Image-quality indicators. High values suggest less visible change, not resistance to detection.</p></div><div class="metric-note"><span>03</span><strong>Integrity check</strong><p>SHA-256 equality detects changed bytes, but does not establish the sender's identity.</p></div></div>
+        </section>
+        <footer class="footer"><span>VEILLINK <b>·</b> RESEARCH PROTOTYPE</span><span>BUILT AROUND LSB + SHA-256</span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
